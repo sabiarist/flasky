@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   {% block head %}
+       <title>{% block title %} {% endblock %} - My Application</title>
+   {% endblock %}
+</head>
+<body>
+    {% block body %}
+        <header>
+            {% block navbar %}
+
+            {% endblock %}
+        </header>
+
+        {% block content %}
+
+        {% endblock %}
+
+        <footer>
+            {% block scripts %}
+
+            {% endblock %}
+        </footer>
+    {% endblock %}
+</body>
+</html>
