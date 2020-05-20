@@ -4,6 +4,9 @@ from flask import make_response
 from flask import redirect
 from flask import abort
 from flask import render_template
+from flask import session
+from flask import flash
+from flask import url_for
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -30,17 +33,14 @@ def index():
 
 @app.route('/user/', methods=['GET', 'POST'])
 def user():
-    name = None
     form = NameForm()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
-    return render_template('user.html', userform=form, name=name)
-
-
-@app.route('/redirect')
-def redirect():
-    return redirect('http://senfood.pe.hu/')
+        old_name = session.get('name')
+        if old_name is not None and old_name != form.name.data:
+            flash('Looks like you have changed your name!')
+        session['name'] = form.name.data
+        return redirect(url_for('user'))
+    return render_template('user.html', userform=form, name=session.get('name'))
 
 
 # creates a response object and then sets a cookie in it
