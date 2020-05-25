@@ -1,0 +1,1 @@
+msg.body = 'Ceci est le corps du texte brut'
